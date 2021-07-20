@@ -1,2 +1,2 @@
 # instagram
-Its a gallery looks like Instagramm.
+Its a gallery looks like Instagram.
