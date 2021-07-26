@@ -11,7 +11,7 @@ import AVKit
 class ViewController: UIViewController {
 
     private let userDefaults = UserDefaults.standard
-    private var userSettings: UserSettings?
+    private var user: User?
     private let fileManager = FileManager.default
     private lazy var cachesFolderURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask)[0]
     private lazy var imagesFolderURL = cachesFolderURL.appendingPathComponent("images")
@@ -80,28 +80,28 @@ class ViewController: UIViewController {
     }
     
     private func readUserSettings() {
-        if let userSettingsData = userDefaults.value(forKey: DefaultsKeys.userSettings.rawValue) as? Data {
-            self.userSettings = try? JSONDecoder().decode(UserSettings.self, from: userSettingsData)
+        if let userData = userDefaults.value(forKey: DefaultsKeys.user.rawValue) as? Data {
+            self.user = try? JSONDecoder().decode(User.self, from: userData)
         }
     }
 
     private func saveSettings() {
-        if let userSettings = userSettings {
+        if let userSettings = user {
             let userSettingsData = try? JSONEncoder().encode(userSettings)
-            userDefaults.setValue(userSettingsData, forKey: DefaultsKeys.userSettings.rawValue)
+            userDefaults.setValue(userSettingsData, forKey: DefaultsKeys.user.rawValue)
         }
     }
     
     private func showHelloAlert() {
-        if let userSettings = userSettings {
-            showAlert(alertType: .password, userSettings: userSettings)
+        if let user = user {
+            showAlert(alertType: .password, user: user)
         } else {
 //            userSettings = UserSettings(login: "", password: "")
 //            showAlert(alertType: .newUser, userSettings: userSettings!)
         }
     }
     
-    func showAlert(alertType: AlertType, userSettings: UserSettings) {
+    func showAlert(alertType: AlertType, user: User) {
         var alert = UIAlertController()
         switch alertType {
         case .newUser:
@@ -116,14 +116,14 @@ class ViewController: UIViewController {
                 textField.placeholder = "Enter password"
             }
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-                userSettings.login = alert.textFields?[0].text ?? ""
-                userSettings.password = alert.textFields?[1].text ?? ""
+                user.username = alert.textFields?[0].text ?? ""
+                user.password = alert.textFields?[1].text ?? ""
                 self.saveSettings()
                 self.logIn = true
             }))
         case .password:
             alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
-            alert.title = "Hello \(userSettings.login)!"
+            alert.title = "Hello \(user.username)!"
             alert.message = "Enter your password."
             alert.addTextField { textField in
                 textField.isSecureTextEntry = true
@@ -131,10 +131,10 @@ class ViewController: UIViewController {
             }
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
                 let enteredPassword = alert.textFields?[0].text ?? ""
-                if enteredPassword != userSettings.password {
+                if enteredPassword != user.password {
                     let newAlert = UIAlertController(title: "Ops...", message: "Wrong password!", preferredStyle: .alert)
                     newAlert.addAction(UIAlertAction(title: "Try again", style: .default, handler: { _ in
-                        self.showAlert(alertType: .password, userSettings: self.userSettings!)
+                        self.showAlert(alertType: .password, user: self.user!)
                     }))
                     newAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
                     self.present(newAlert, animated: true)

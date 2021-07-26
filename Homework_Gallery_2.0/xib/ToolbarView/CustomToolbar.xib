@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomToolbar" customModule="Homework_Gallery_2_0" customModuleProvider="target">
+            <connections>
+                <outlet property="addImageButton" destination="QF5-fC-hOh" id="trz-iT-8uA"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="BHQ-QW-Ofk"/>
+                <outlet property="homeButton" destination="0BH-Js-HnF" id="Fhe-qD-S7k"/>
+                <outlet property="likesButton" destination="oCg-gf-98N" id="vWL-Rc-0tQ"/>
+                <outlet property="profileButton" destination="dH1-Gg-ghd" id="9iw-kr-SHM"/>
+                <outlet property="searchFriendsButton" destination="hzy-KZ-XEd" id="uu5-Z8-Zw4"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="492" height="88"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jep-2T-S1e">
+                    <rect key="frame" x="0.0" y="1" width="492" height="87"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <items>
+                        <barButtonItem title="Item" image="house" catalog="system" id="0BH-Js-HnF">
+                            <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="homeButtonPressed:" destination="-1" id="JaP-vr-0bG"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="lCz-Gd-i04"/>
+                        <barButtonItem tag="1" title="Item" id="hzy-KZ-XEd">
+                            <imageReference key="image" image="magnifyingglass.circle" catalog="system" symbolScale="large"/>
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="searchFriendsButtonPressed:" destination="-1" id="G7X-lt-wvY"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Y5J-Tt-mbA"/>
+                        <barButtonItem title="Item" image="plus.circle" catalog="system" id="QF5-fC-hOh">
+                            <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addImageButtonPressed:" destination="-1" id="jbd-6M-oBZ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="ajQ-Nm-WdD"/>
+                        <barButtonItem title="Item" image="heart" catalog="system" id="oCg-gf-98N">
+                            <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="likesButtonPressed:" destination="-1" id="6J7-rg-IQT"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="o2J-JD-XtX"/>
+                        <barButtonItem title="Item" image="book.closed" catalog="system" id="dH1-Gg-ghd">
+                            <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="profileButtonPressed:" destination="-1" id="nug-rc-K4m"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                    <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                </toolbar>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="jep-2T-S1e" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="1" id="cti-kg-2UY"/>
+                <constraint firstAttribute="trailing" secondItem="jep-2T-S1e" secondAttribute="trailing" id="hFt-hV-pot"/>
+                <constraint firstAttribute="bottom" secondItem="jep-2T-S1e" secondAttribute="bottom" id="tcb-fm-Si4"/>
+                <constraint firstItem="jep-2T-S1e" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="x60-yx-bmV"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-32" y="-315"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="book.closed" catalog="system" width="115" height="128"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="house" catalog="system" width="128" height="106"/>
+        <image name="magnifyingglass.circle" catalog="system" width="128" height="121"/>
+        <image name="plus.circle" catalog="system" width="128" height="121"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

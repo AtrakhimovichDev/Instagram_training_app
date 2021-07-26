@@ -58,6 +58,12 @@ class SignUpView: UIView {
         passwordTextField.text = ""
     }
     
+    @IBAction func clearDefaultsButtonPressed(_ sender: Any) {
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+    }
+    
     @IBAction func signUpButtonPressed(_ sender: Any) {
         if let signUpAction = signUpAction {
             signUpAction()

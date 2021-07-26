@@ -8,5 +8,5 @@
 import Foundation
 
 enum DefaultsKeys: String {
-    case userSettings = "User_settings"
+    case user = "User_settings"
 }

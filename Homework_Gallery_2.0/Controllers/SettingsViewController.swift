@@ -25,6 +25,6 @@ class SettingsViewController: UIViewController {
     
     @IBAction func deleteSettingsButtonPressed(_ sender: Any) {
         let userDefaults = UserDefaults.standard
-        userDefaults.removeObject(forKey: DefaultsKeys.userSettings.rawValue)
+        userDefaults.removeObject(forKey: DefaultsKeys.user.rawValue)
     }
 }

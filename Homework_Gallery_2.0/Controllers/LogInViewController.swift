@@ -12,7 +12,7 @@ class LogInViewController: UIViewController {
     @IBOutlet weak var contentView: UIView!
     private let logInView = LogInView()
     private let signUpView = SignUpView()
-    private var userSettingsArray: [UserSettings]? = nil
+    private var usersArray: [User]? = nil
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +38,14 @@ class LogInViewController: UIViewController {
         }
         
         signUpView.signUpAction = {
-            self.saveUserSettings()
+            let success = self.saveUserSettings()
+            if success {
+                self.signUpView.removeFromSuperview()
+                self.logInView.fixInContainer(self.contentView)
+                self.logInView.clearAllValues()
+                self.view.layoutIfNeeded()
+            }
         }
-    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,56 +55,85 @@ class LogInViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
-    private func saveUserSettings() {
+    private func saveUserSettings() -> Bool {
+        var success = checkFieldsFilling()
+        if !success {
+            return success
+        }
+        success = checkSameLogin(login: signUpView.loginTextField.text!)
+        if !success {
+            return success
+        }
+        signUpView.errorLabel.text = ""
+        let user = User(username: signUpView.loginTextField.text!,
+                        password: signUpView.passwordTextField.text!,
+                        phone: signUpView.phoneTextField.text!,
+                        fullName: signUpView.fullNameTextField.text!)
+        success = UsersManager.saveUserInfo(key: .user, value: user)
+        return success
+    }
+    
+    private func checkSameLogin(login: String) -> Bool {
+        usersArray = UsersManager.getUserInfo(key: .user) as? [User]
+        if let curentUsersArray = usersArray {
+            for curentUser in curentUsersArray {
+                if curentUser.username == login {
+                    signUpView.errorLabel.text = "User with this name exists"
+                    return false
+                }
+            }
+        }
+        return true
+    }
+    
+    private func checkFieldsFilling() -> Bool {
         guard let phone = signUpView.phoneTextField.text else {
             signUpView.errorLabel.text = "Fill phone field"
-            return
+            return false
         }
         if phone.isEmpty {
             signUpView.errorLabel.text = "Fill phone field"
-            return
+            return false
         }
         
         guard let fullName = signUpView.fullNameTextField.text else{
             signUpView.errorLabel.text = "Fill full name field"
-            return
+            return false
         }
         if fullName.isEmpty {
             signUpView.errorLabel.text = "Fill full name field"
-            return
+            return false
         }
         
         guard let login = signUpView.loginTextField.text else {
             signUpView.errorLabel.text = "Fill login field"
-            return
+            return false
         }
         if login.isEmpty {
             signUpView.errorLabel.text = "Fill login field"
-            return
+            return false
         }
         
         guard let password = signUpView.passwordTextField.text else {
             signUpView.errorLabel.text = "Fill password field"
-            return
+            return false
         }
         if password.isEmpty {
             signUpView.errorLabel.text = "Fill password field"
-            return
+            return false
         }
-        signUpView.errorLabel.text = ""
-        let userSettings = UserSettings(phone: phone, fullName: fullName, login: login, password: password)
-        UserDefaultsManager.saveUserDefaults(key: .userSettings, value: userSettings)
+        return true
     }
-   
+    
     private func checkLoginAndPassword() {
-        userSettingsArray = UserDefaultsManager.getUserDefaults(key: .userSettings) as? [UserSettings]
+        usersArray = UsersManager.getUserInfo(key: .user) as? [User]
         var errorMessage = "No such account exists"
-        if let curentUserSettingsArray = userSettingsArray {
-            for curentUserSettings in curentUserSettingsArray {
-                if curentUserSettings.login == logInView.loginTextField.text {
-                    if curentUserSettings.password == logInView.passwordTextField.text {
+        if let curentUsersArray = usersArray {
+            for curentUser in curentUsersArray {
+                if curentUser.username == logInView.loginTextField.text {
+                    if curentUser.password == logInView.passwordTextField.text {
                         errorMessage = ""
-                        openGallery()
+                        openGallery(user: curentUser)
                     } else {
                         errorMessage = "Wrong password"
                         break
@@ -110,9 +144,9 @@ class LogInViewController: UIViewController {
         logInView.errorLabel.text = errorMessage
     }
     
-    private func openGallery() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let galleryVC = storyboard.instantiateViewController(identifier: String(describing: GalleryViewController.self))
-        navigationController?.pushViewController(galleryVC, animated: true)
+    private func openGallery(user: User) {
+        let identifier = String(describing: GalleryViewController.self)
+        let controller = ViewControllersFactory.createGalleryViewController(identifier: identifier, user: user)
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
