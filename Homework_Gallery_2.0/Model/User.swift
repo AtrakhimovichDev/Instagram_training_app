@@ -8,14 +8,16 @@
 import Foundation
 
 class User: Codable {
+    var identifier: UUID
     var username: String
     var password: String
-    var images = [Image]()
-    var friends = [User]()
+    var images = [UUID]()
+    var friends = [UUID]()
     private var phone: String
     private var fullName: String
     
-    internal init(username: String, password: String, phone: String, fullName: String) {
+    internal init(identifier: UUID, username: String, password: String, phone: String, fullName: String) {
+        self.identifier = identifier
         self.username = username
         self.password = password
         self.phone = phone

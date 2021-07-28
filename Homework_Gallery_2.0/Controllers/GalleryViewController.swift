@@ -14,6 +14,8 @@ class GalleryViewController: UIViewController {
     @IBOutlet weak var horizontalLineView: UIView!
     @IBOutlet weak var toolbarView: CustomToolbar!
     
+    let commentView = CommentView()
+    
     var user: User!
     var imagesArray = [Image]()
     
@@ -23,6 +25,11 @@ class GalleryViewController: UIViewController {
         setToolbarActions()
         fillImages()
         horizontalLineView.frame.size.height = 0.5
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UserDefaultsManager.saveUserInfo(key: .user, user: user)
     }
     
     private func setTableViewSettings() {
@@ -51,20 +58,15 @@ class GalleryViewController: UIViewController {
     }
     
     private func fillImages() {
-        guard let user = user else {
-            return
-        }
-        for userFriend in user.friends {
-            for image in userFriend.images {
-                imagesArray.append(image)
-            }
-        }
-        for image in user.images {
-            imagesArray.append(image)
-        }
+        var usersUUID = user.friends
+        usersUUID.append(user.identifier)
+        imagesArray = UserDefaultsManager.getImages(usersUUID: usersUUID, key: .image)
         imagesArray.sort { $0.date > $1.date }
     }
 
+    @IBAction func chatButtonPressed(_ sender: Any) {
+        commentView.inputField.becomeFirstResponder()
+    }
 }
 
 extension GalleryViewController: UITableViewDataSource {
@@ -77,7 +79,7 @@ extension GalleryViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ImageTableViewCell.identifier) as? ImageTableViewCell else {
             return UITableViewCell()
         }
-        cell.setup(image: imagesArray[indexPath.item], tableViewWidth: tableView.frame.width)
+        cell.setup(image: imagesArray[indexPath.item], user: user, tableViewWidth: tableView.frame.width)
         return cell
     }
 }

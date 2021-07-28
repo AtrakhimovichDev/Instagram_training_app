@@ -9,4 +9,5 @@ import Foundation
 
 enum DefaultsKeys: String {
     case user = "User_settings"
+    case image = "Image"
 }

@@ -82,9 +82,13 @@
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="25" id="Duv-gO-KJ0"/>
                                     <constraint firstAttribute="width" secondItem="IuX-5p-cqo" secondAttribute="height" multiplier="1:1" id="wh0-HM-QgN"/>
                                 </constraints>
-                                <state key="normal">
-                                    <imageReference key="backgroundImage" image="heart" catalog="system" renderingMode="original"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" backgroundImage="heart" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="likeButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qXe-Wg-KNZ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3N-lw-cfy">
                                 <rect key="frame" x="55" y="10.5" width="25" height="24.5"/>
@@ -95,6 +99,9 @@
                                 <state key="normal">
                                     <imageReference key="backgroundImage" image="bubble.right" catalog="system" renderingMode="original"/>
                                 </state>
+                                <connections>
+                                    <action selector="commentButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="uQt-Zz-CtX"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oT9-uM-HmU">
                                 <rect key="frame" x="90" y="10.5" width="25" height="24.5"/>
@@ -166,6 +173,9 @@
                                 <state key="normal" title="Add comment...">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="addCommentButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="R6p-an-wbd"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -200,6 +210,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="imageHeightConstraint" destination="us2-UT-qTV" id="cLv-5f-Lep"/>
+                <outlet property="likeButton" destination="IuX-5p-cqo" id="5SH-ad-muD"/>
                 <outlet property="likesLabel" destination="xPV-rT-N25" id="Wv6-4d-WRb"/>
                 <outlet property="locationLabel" destination="0Oe-Qp-NvU" id="dSU-1d-wu4"/>
                 <outlet property="pictureView" destination="JST-nH-PLc" id="EZ9-VB-Bit"/>

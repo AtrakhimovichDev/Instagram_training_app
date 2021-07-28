@@ -66,11 +66,11 @@ class FriendTableViewCell: UITableViewCell {
     
     private func saveToFollowing() {
         if let friend = self.friend {
-            user?.friends.append(friend)
+            user?.friends.append(friend.identifier)
         }
     }
     
     private func removeFromFollowing() {
-        user?.friends = user?.friends.filter { $0.username != friend?.username } ?? [User]()
+        user?.friends = user?.friends.filter { $0 != friend?.identifier } ?? [UUID]()
     }
 }

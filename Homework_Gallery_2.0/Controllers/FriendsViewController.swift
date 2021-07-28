@@ -23,8 +23,8 @@ class FriendsViewController: UIViewController {
     }
     
     private func fillUsersArray() {
-        if var allUsers = UsersManager.getUserInfo(key: .user) as? [User] {
-            allUsers = allUsers.filter { $0.username != user.username }
+        if var allUsers = UserDefaultsManager.getAllUsers(key: .user) {
+            allUsers = allUsers.filter { $0.identifier != user.identifier }
             usersArray = allUsers
         }
     }
@@ -57,7 +57,7 @@ class FriendsViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UsersManager.saveUserInfo(key: .user, value: user)
+        UserDefaultsManager.saveUserInfo(key: .user, user: user)
     }
 }
 
@@ -71,11 +71,12 @@ extension FriendsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         var isFollowed = false
-        if user.friends.contains(where: { $0.username == usersArray[indexPath.row].username }) {
+        if user.friends.contains(where: { $0 == usersArray[indexPath.row].identifier }) {
             isFollowed = true
         }
         cell.usernameLabel.text = usersArray[indexPath.row].username
         cell.setup(user: user, friend: usersArray[indexPath.row], isFollowed: isFollowed)
+        cell.profileImageView.image = FilesManager.getProfileImage(username: usersArray[indexPath.row].username)
         return cell
     }
     

@@ -31,6 +31,7 @@ class ProfileViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapAction))
         profileImageView.addGestureRecognizer(tapGesture)
         
+        profileImageView.image = FilesManager.getProfileImage(username: user.username)
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
         usernameLabel.text = user.username
         postNumberLabel.text = "\(user.images.count)"
@@ -115,7 +116,8 @@ extension ProfileViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.imageView.image = FilesManager.getImage(image: user.images[indexPath.item])
+        let image = UserDefaultsManager.getImage(imageUUID: user.images[indexPath.item], key: .image)
+        cell.imageView.image = FilesManager.getImage(image: image)
         return cell
     }
 }
@@ -142,7 +144,8 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
             profileImageView.image = image
             let imageName = "profileImage.png"
             let folder = user.username
-            let imageInfo = Image(imageName: imageName, folder: folder, location: "", date: Date(), ownerUsername: user.username)
+            let imageInfo = Image(identifier: UUID(), imageName: imageName, folder: folder, location: "", date: Date(), ownerUsername: user.identifier)
+            UserDefaultsManager.saveImage(image: imageInfo, key: .image)
             FilesManager.saveImage(in: imagesDirectoryURL, imageInfo: imageInfo, image: image)
         }
         picker.dismiss(animated: true)

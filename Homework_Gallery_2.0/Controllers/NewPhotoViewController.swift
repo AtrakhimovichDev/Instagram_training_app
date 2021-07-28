@@ -31,11 +31,6 @@ class NewPhotoViewController: UIViewController {
         showAlert()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        UsersManager.saveUserInfo(key: .user, value: user)
-    }
-    
     private func showAlert() {
         let picker = UIImagePickerController()
         picker.delegate = self
@@ -88,9 +83,12 @@ class NewPhotoViewController: UIViewController {
         let imageName = "\(Int(Date().timeIntervalSince1970)).png"
         let folder = user.username
         let location = locationTextField.text ?? ""
-        let image = Image(imageName: imageName, folder: folder, location: location, date: Date(), ownerUsername: user.username)
-        user.images.append(image)
+        let imageIdentifier = UUID()
+        let image = Image(identifier: imageIdentifier, imageName: imageName, folder: folder, location: location, date: Date(), ownerUsername: user.identifier)
+        user.images.append(imageIdentifier)
         saveImageInFolder(image: image)
+        UserDefaultsManager.saveImage(image: image, key: .image)
+        UserDefaultsManager.saveUserInfo(key: .user, user: user)
         quit()
     }
     

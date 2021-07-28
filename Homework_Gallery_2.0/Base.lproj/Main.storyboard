@@ -58,6 +58,9 @@
                                                         </constraints>
                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" backgroundImage="bubble.left" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="chatButtonPressed:" destination="hpE-qO-s9i" eventType="touchUpInside" id="ajj-yB-IWw"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -223,7 +226,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New post" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ze8-pq-KlN">
-                                                <rect key="frame" x="70" y="14.5" width="73" height="21"/>
+                                                <rect key="frame" x="70" y="14.5" width="324" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -233,6 +236,7 @@
                                         <constraints>
                                             <constraint firstItem="ze8-pq-KlN" firstAttribute="leading" secondItem="NeW-N6-kBE" secondAttribute="trailing" constant="20" id="6eJ-3Q-yiF"/>
                                             <constraint firstItem="ze8-pq-KlN" firstAttribute="centerY" secondItem="tuN-VI-b3g" secondAttribute="centerY" id="K03-bF-jRd"/>
+                                            <constraint firstAttribute="trailing" secondItem="ze8-pq-KlN" secondAttribute="trailing" constant="20" id="O5k-ye-MyA"/>
                                             <constraint firstItem="NeW-N6-kBE" firstAttribute="top" secondItem="tuN-VI-b3g" secondAttribute="top" constant="10" id="YJY-FV-Gh0"/>
                                             <constraint firstItem="NeW-N6-kBE" firstAttribute="leading" secondItem="tuN-VI-b3g" secondAttribute="leading" constant="20" id="bYb-X6-ZYC"/>
                                             <constraint firstItem="NeW-N6-kBE" firstAttribute="centerY" secondItem="tuN-VI-b3g" secondAttribute="centerY" id="fon-XK-hcw"/>
@@ -324,7 +328,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MlI-f0-AGY">
-                                                <rect key="frame" x="20" y="20" width="91" height="30"/>
+                                                <rect key="frame" x="20" y="20" width="324" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -347,6 +351,7 @@
                                             <constraint firstItem="MlI-f0-AGY" firstAttribute="centerY" secondItem="yHr-Db-uNk" secondAttribute="centerY" id="Ir7-yh-aQC"/>
                                             <constraint firstItem="Cuc-uL-Kr1" firstAttribute="centerY" secondItem="yHr-Db-uNk" secondAttribute="centerY" id="MzW-6a-hkd"/>
                                             <constraint firstItem="Cuc-uL-Kr1" firstAttribute="top" secondItem="yHr-Db-uNk" secondAttribute="top" constant="20" id="UXc-2b-AAz"/>
+                                            <constraint firstItem="Cuc-uL-Kr1" firstAttribute="leading" secondItem="MlI-f0-AGY" secondAttribute="trailing" constant="20" id="VNO-Fd-ytn"/>
                                             <constraint firstItem="MlI-f0-AGY" firstAttribute="top" secondItem="yHr-Db-uNk" secondAttribute="top" constant="20" id="sH8-BF-2S1"/>
                                         </constraints>
                                     </view>
