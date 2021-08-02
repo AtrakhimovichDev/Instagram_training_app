@@ -38,12 +38,12 @@ class ViewController: UIViewController {
         picker.delegate = self
         picker.allowsEditing = true
         let alert = UIAlertController(title: "Choose media source", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Media library", style: .default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "Media library", style: .default, handler: { _ in
             picker.sourceType = .photoLibrary
             self.present(picker, animated: true)
         }))
         
-        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
             if self.checkCameraPermissions() {
                 picker.sourceType = .camera
                 self.present(picker, animated: true)
@@ -153,7 +153,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
        
         let image = info[.editedImage] as? UIImage
         let imageData = image?.pngData()
@@ -166,4 +166,3 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         
     }
 }
-

@@ -14,7 +14,8 @@ class GalleryViewController: UIViewController {
     @IBOutlet weak var horizontalLineView: UIView!
     @IBOutlet weak var toolbarView: CustomToolbar!
     
-    let commentView = CommentView()
+    let keyInputView = KeyInputView()
+    var commentView = CommentView()
     
     var user: User!
     var imagesArray = [Image]()
@@ -25,19 +26,31 @@ class GalleryViewController: UIViewController {
         setToolbarActions()
         fillImages()
         horizontalLineView.frame.size.height = 0.5
+        
+        let allViewsInXibArray = Bundle.main.loadNibNamed("CommentView", owner: self, options: nil)
+
+        if let commentView = allViewsInXibArray?.first as? CommentView {
+            commentView.frame.size = CGSize(width: view.frame.width, height: 40)
+        }
+        // keyInputView.inputAccessoryView = commentView
+        // keyInputView.inputView = commentView
+        // commentView.frame = CGRect(x: 0, y: 0, width: 300, height: 200)
+
+        view.addSubview(keyInputView)
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UserDefaultsManager.saveUserInfo(key: .user, user: user)
     }
-    
+
     private func setTableViewSettings() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UINib(nibName: String(describing: ImageTableViewCell.self), bundle: nil), forCellReuseIdentifier: ImageTableViewCell.identifier)
+        let customNib = UINib(nibName: String(describing: ImageTableViewCell.self), bundle: nil)
+        tableView.register(customNib, forCellReuseIdentifier: ImageTableViewCell.identifier)
     }
-    
+
     private func setToolbarActions() {
         toolbarView.homeButton.image = UIImage(systemName: "house.fill")
         toolbarView.searchFriendsButtonAction = {
@@ -65,7 +78,9 @@ class GalleryViewController: UIViewController {
     }
 
     @IBAction func chatButtonPressed(_ sender: Any) {
-        commentView.inputField.becomeFirstResponder()
+        // commentView.inputField.becomeFirstResponder()
+        // commentView.inputField.inputAccessoryView = commentView
+        keyInputView.becomeFirstResponder()
     }
 }
 
@@ -74,7 +89,7 @@ extension GalleryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return imagesArray.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ImageTableViewCell.identifier) as? ImageTableViewCell else {
             return UITableViewCell()
@@ -89,6 +104,3 @@ extension GalleryViewController: UITableViewDelegate {
         return UIView()
     }
 }
-
-
-

@@ -16,43 +16,42 @@ class LogInView: UIView {
     @IBOutlet weak var loginTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBInspectable var borderWidth: CGFloat {
-        set {
-            self.layer.borderWidth = newValue
-        }
         get {
             return self.layer.borderWidth
         }
+        set {
+            self.layer.borderWidth = newValue
+        }
     }
     @IBInspectable var borberColor: UIColor {
-        set {
-            self.layer.borderColor = newValue.cgColor
-        }
         get {
             if let cgColor = self.layer.borderColor {
                 return UIColor(cgColor: cgColor)
             } else {
                 return UIColor.white
             }
-            
+        }
+        set {
+            self.layer.borderColor = newValue.cgColor
         }
     }
     @IBInspectable var cornerRadius: CGFloat {
-        set {
-            self.layer.cornerRadius = newValue
-        }
         get {
             return self.layer.cornerRadius
         }
+        set {
+            self.layer.cornerRadius = newValue
+        }
     }
-    
-    var logInAction: (() -> ())?
-    var signUpAction: (() -> ())?
-    
+
+    var logInAction: (() -> Void)?
+    var signUpAction: (() -> Void)?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
@@ -63,13 +62,13 @@ class LogInView: UIView {
             logInAction()
         }
     }
-    
+
     @IBAction func signUpButtonPressed(_ sender: Any) {
         if let signUpAction = signUpAction {
             signUpAction()
         }
     }
-    
+
     private func setup() {
         Bundle(for: LogInView.self).loadNibNamed(String(describing: LogInView.self), owner: self, options: [:])
         logInButton.layer.cornerRadius = 5
@@ -91,7 +90,6 @@ class LogInView: UIView {
         loginTextField.text = ""
         passwordTextField.text = ""
     }
-    
 }
 
 extension LogInView: UITextFieldDelegate {
