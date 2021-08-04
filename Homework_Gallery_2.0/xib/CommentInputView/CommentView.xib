@@ -79,7 +79,7 @@
                 <outlet property="inputField" destination="4fE-0C-Cat" id="N34-Tg-poM"/>
                 <outlet property="postButton" destination="rnV-68-Ylh" id="1nE-x5-biP"/>
             </connections>
-            <point key="canvasLocation" x="-328" y="-211"/>
+            <point key="canvasLocation" x="-1" y="-134"/>
         </view>
     </objects>
     <resources>

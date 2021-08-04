@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol FriendTableViewCellDelegate {
+protocol FriendTableViewCellDelegate: class {
     func follow()
 }

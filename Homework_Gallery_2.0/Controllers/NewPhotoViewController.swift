@@ -36,12 +36,12 @@ class NewPhotoViewController: UIViewController {
         picker.delegate = self
         picker.allowsEditing = true
         let alert = UIAlertController(title: "Choose media source", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Media library", style: .default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "Media library", style: .default, handler: { _ in
             picker.sourceType = .photoLibrary
             self.present(picker, animated: true)
         }))
         
-        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
             if self.checkCameraPermissions() {
                 picker.sourceType = .camera
                 self.present(picker, animated: true)
@@ -49,7 +49,7 @@ class NewPhotoViewController: UIViewController {
                 self.showErrorAlert()
             }
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
             self.quit()
         }))
         present(alert, animated: true)
@@ -69,7 +69,7 @@ class NewPhotoViewController: UIViewController {
     }
     private func showErrorAlert() {
         let alert = UIAlertController(title: "Error", message: "No persmissions for camera usage, check device app settings", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
             self.quit()
         }))
         present(alert, animated: true)
@@ -106,7 +106,7 @@ class NewPhotoViewController: UIViewController {
 }
 
 extension NewPhotoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
        
         let image = info[.editedImage] as? UIImage
         imageView.image = image

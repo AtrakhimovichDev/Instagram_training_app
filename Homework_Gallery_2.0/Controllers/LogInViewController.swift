@@ -13,7 +13,7 @@ class LogInViewController: UIViewController {
     
     private let logInView = LogInView()
     private let signUpView = SignUpView()
-    private var usersArray: [User]? = nil
+    private var usersArray: [User]?
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +85,7 @@ class LogInViewController: UIViewController {
             return false
         }
         
-        guard let fullName = signUpView.fullNameTextField.text else{
+        guard let fullName = signUpView.fullNameTextField.text else {
             signUpView.errorLabel.text = "Fill full name field"
             return false
         }

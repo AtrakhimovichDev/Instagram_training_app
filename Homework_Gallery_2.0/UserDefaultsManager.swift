@@ -37,13 +37,11 @@ class UserDefaultsManager {
     
     static func getUser(login: String?, password: String?, key: DefaultsKeys) -> (User?, String) {
         if let allUsers = getAllUsers(key: key) {
-            for curentUser in allUsers {
-                if curentUser.username == login {
-                    if curentUser.password == password {
-                        return (curentUser, "")
-                    } else {
-                        return (nil, "Wrong password")
-                    }
+            for curentUser in allUsers where curentUser.username == login {
+                if curentUser.password == password {
+                    return (curentUser, "")
+                } else {
+                    return (nil, "Wrong password")
                 }
             }
         }
@@ -54,7 +52,7 @@ class UserDefaultsManager {
         if let allUsers = getAllUsers(key: key) {
             var usersResult: [User] = [User]()
             for user in allUsers {
-                if identifierArray.contains(where: {$0 == user.identifier} ) {
+                if identifierArray.contains(where: {$0 == user.identifier}) {
                     usersResult.append(user)
                 }
             }
@@ -65,10 +63,8 @@ class UserDefaultsManager {
     
     static func findSameLogin(login: String?, key: DefaultsKeys) -> Bool {
         if let allUsers = getAllUsers(key: key) {
-            for curentUser in allUsers {
-                if curentUser.username == login {
-                    return true
-                }
+            for curentUser in allUsers where curentUser.username == login {
+                return true
             }
         }
         return false
@@ -78,7 +74,7 @@ class UserDefaultsManager {
         let userDefaults = UserDefaults.standard
 
         if let allUsers = getAllUsers(key: key) {
-            usersArray = allUsers.filter( {$0.identifier != user.identifier})
+            usersArray = allUsers.filter({ $0.identifier != user.identifier})
             usersArray.append(user)
         } else {
             usersArray = [user]
@@ -120,7 +116,7 @@ class UserDefaultsManager {
     
     static func getImage(imageUUID: UUID, key: DefaultsKeys) -> Image {
         let allImages = getAllImages(key: key)
-        let image = allImages.filter( {$0.identifier == imageUUID})[0]
+        let image = allImages.filter({ $0.identifier == imageUUID})[0]
         return image
     }
     
@@ -131,7 +127,7 @@ class UserDefaultsManager {
         if allImages.count == 0 {
             imagesArray = [image]
         } else {
-            imagesArray = allImages.filter( {$0.identifier != image.identifier})
+            imagesArray = allImages.filter({ $0.identifier != image.identifier})
             imagesArray.append(image)
         }
             

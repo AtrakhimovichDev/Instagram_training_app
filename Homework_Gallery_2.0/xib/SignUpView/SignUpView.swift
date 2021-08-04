@@ -9,7 +9,7 @@ import UIKit
 
 @IBDesignable
 class SignUpView: UIView {
-    
+
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var fullNameTextField: UITextField!
@@ -17,20 +17,20 @@ class SignUpView: UIView {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
-    
-    var logInAction: (() -> ())?
-    var signUpAction: (() -> ())?
-    
+
+    var logInAction: (() -> Void)?
+    var signUpAction: (() -> Void)?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
     }
-    
+
     private func setup() {
         Bundle(for: SignUpView.self).loadNibNamed(String(describing: SignUpView.self), owner: self, options: [:])
         phoneTextField.delegate = self
@@ -49,7 +49,7 @@ class SignUpView: UIView {
 
         signUpButton.layer.cornerRadius = 5
     }
-    
+
     func clearAllValues() {
         errorLabel.text = ""
         phoneTextField.text = ""
@@ -57,19 +57,19 @@ class SignUpView: UIView {
         loginTextField.text = ""
         passwordTextField.text = ""
     }
-    
+
     @IBAction func clearDefaultsButtonPressed(_ sender: Any) {
         let domain = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
     }
-    
+
     @IBAction func signUpButtonPressed(_ sender: Any) {
         if let signUpAction = signUpAction {
             signUpAction()
         }
     }
-    
+
     @IBAction func logInButtonPressed(_ sender: Any) {
         if let logInAction = logInAction {
             logInAction()

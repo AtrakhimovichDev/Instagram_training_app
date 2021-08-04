@@ -32,7 +32,7 @@ class FriendsViewController: UIViewController {
     private func setTableViewSettings() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UINib(nibName: String(describing: FriendTableViewCell.self),bundle: nil), forCellReuseIdentifier: FriendTableViewCell.identifier)
+        tableView.register(UINib(nibName: String(describing: FriendTableViewCell.self), bundle: nil), forCellReuseIdentifier: FriendTableViewCell.identifier)
     }
     
     private func setToolbarSettings() {
@@ -79,8 +79,6 @@ extension FriendsViewController: UITableViewDataSource {
         cell.profileImageView.image = FilesManager.getProfileImage(username: usersArray[indexPath.row].username)
         return cell
     }
-    
-    
 }
 
 extension FriendsViewController: UITableViewDelegate {
@@ -88,4 +86,3 @@ extension FriendsViewController: UITableViewDelegate {
         return UIView()
     }
 }
-
